@@ -3,9 +3,12 @@ function smarty_block_mtputcontents ( $args, $content, &$ctx, &$repeat ) {
     if (! isset( $content ) ) {
     } else {
         $repeat = FALSE;
+        $no_output = $args[ 'no_output' ];
         global $mt;
         if (! $mt->config( 'allowputcontents' ) ) {
-            return $contents;
+            if (! $no_output ) {
+                return $contents;
+            }
         }
         $file = $args[ 'file' ];
         if ( preg_match( '/\.\./', $file ) ) {
@@ -17,7 +20,9 @@ function smarty_block_mtputcontents ( $args, $content, &$ctx, &$repeat ) {
         }
         $absolute = $args[ 'absolute' ];
         if ( $absolute && (! $mt->config( 'allowputcontentsabsolute' ) ) ) {
-            return $contents;
+            if (! $no_output ) {
+                return $contents;
+            }
         }
         if (! $absolute ) {
             $blog = $ctx->stash( 'blog' );
@@ -30,7 +35,9 @@ function smarty_block_mtputcontents ( $args, $content, &$ctx, &$repeat ) {
             $file = $site_path . $file;
         }
         file_put_contents( $file, $content );
-        return $content;
+        if (! $no_output ) {
+            return $content;
+        }
     }
 }
 ?>
