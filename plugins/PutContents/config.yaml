@@ -1,0 +1,12 @@
+name: PutContents
+id:   PutContents
+key:  putcontents
+version: 0.1
+author_link: http://alfasado.net/
+author_name: Alfasado Inc.
+l10n_class: PutContents::L10N
+description: <__trans phrase="Content write to the file.">
+tags:
+    block:
+        PutContents: sub{}
+
